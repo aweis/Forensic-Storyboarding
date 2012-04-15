@@ -13,3 +13,6 @@
 
 #ignore MPEG files
 *.MPEG
+
+#ignore frames
+frames/*
