@@ -1,0 +1,15 @@
+#ignore vim swap files
+*.swp
+
+#ignore mpg files
+*.mpg
+
+#ignore mpeg files
+*.mpeg
+
+#ignore MPG files
+
+*.MPG
+
+#ignore MPEG files
+*.MPEG
