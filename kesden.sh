@@ -14,7 +14,7 @@ then
   ffmpeg -g 600 -i ${VIDEO_FILE} tmpvideo.mpeg
 
   #mplayer to grab the keyframes
-  mplayer -vo jpeg:outdir=frames -vf framestep=I -frames 100 tmpvideo.mpeg
+  mplayer -ao null -vo jpeg:outdir=frames:fast -vf framestep=I -frames 100 tmpvideo.mpeg
 
   #clean up tmpvideo.mpeg
   rm tmpvideo.mpeg
