@@ -14,7 +14,7 @@ then
   ffmpeg -g 600 -i ${VIDEO_FILE} tmpvideo.mpeg -sc_threshold 40
 
   #mplayer to grab the keyframes
-  mplayer -nosound -vo jpeg:outdir=frames -benchmark -vf framestep=I tmpvideo.mpeg
+  mplayer -nosound -vo png:outdir=frames -benchmark -vf framestep=I tmpvideo.mpeg
 
   #clean up tmpvideo.mpeg
   rm tmpvideo.mpeg
