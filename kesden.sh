@@ -11,10 +11,10 @@ if [ -f ${VIDEO_FILE} ]
 then
   echo "The file you want to analyze: ${VIDEO_FILE}"
   #ffmpeg script from kesden
-  ffmpeg -g 600 -i ${VIDEO_FILE} tmpvideo.mpeg
+  ffmpeg -g 600 -i ${VIDEO_FILE} tmpvideo.mpeg -sc_threshold 40
 
   #mplayer to grab the keyframes
-  mplayer -ao null -vo jpeg:outdir=frames:fast -vf framestep=I -frames 100 tmpvideo.mpeg
+  mplayer -nosound -vo jpeg:outdir=frames -benchmark -vf framestep=I tmpvideo.mpeg
 
   #clean up tmpvideo.mpeg
   rm tmpvideo.mpeg
