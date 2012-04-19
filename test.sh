@@ -1,48 +1,60 @@
 #!/bin/bash
 
-#http://ffmpeg.org/pipermail/ffmpeg-user/2012-February/005279.html
+#http://ffmpeg.org/pipermail/ffmpeg-user/2012-HTML_FILEebruary/005279.html
 
 #ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i MELT.MP4 -vsync 2 -s 73x41 -f image2 thumbnails-%02d.jpeg
 
-timeCodes="keyframe-timecodes.txt"
+#remove anything in the frames directory
+rm ./frames/*
 
-ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i ${1} -vsync 2 -s 73x41 -f image2 ./frames/thumbnails-%d.jpeg -loglevel debug 2>&1 | grep "pict_type:I -> select:1" | cut -d " " -f 6 - > ${timeCodes} 
+TIME_CODE_FILE="keyframe-timecodes.txt"
 
-F="site.html"
+ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i ${1} -vsync 2 -s 73x41 -f image2 ./frames/thumbnails-%d.jpeg -loglevel debug 2>&1 | grep "pict_type:I -> select:1" | cut -d " " -f 6 - > ${TIME_CODE_FILE} 
 
-echo '<html>' > ${F}
-echo '<head>' >> ${F}
-echo '<title>Sample site</title>' >> ${F}
+HTML_FILE="site.html"
 
-echo '</head>' >> ${F}
+#Header HTML information
+echo '<!DOCTYPE html>' > ${HTML_FILE}
+echo '<html lang="en">' >> ${HTML_FILE}
+echo '<head>' >> ${HTML_FILE}
+echo '<meta charset="utf-8" />' >> ${HTML_FILE}
+echo '<title>Video Analysis</title>' >> ${HTML_FILE}
 
-echo  '<body>' >> ${F}
+echo '<link rel="stylesheet" href="stylesheets/normalize.css">' >> ${HTML_FILE}
+echo '<link rel="stylesheet" href="stylesheets/style.css">' >> ${HTML_FILE}
 
-echo '<h1> Hello World</h1>' >> ${F}
-echo '<video id="vid" width="320" height="240" preload controls="controls">' >> ${F}
-echo "<source src=\"${1}\" type=\"video/mp4\" />" >> ${F}
-echo 'Your browser does not support the video tag.' >> ${F}
-echo '</video>' >> ${F}
+echo '</head>' >> ${HTML_FILE}
 
-echo '<script type="text/javascript">' >> ${F}
-echo 'var myvid = document.getElementById("vid");' >> ${F}
-echo 'myvid.load();' >> ${F}
-echo '</script>' >> ${F}
+echo '<body>' >> ${HTML_FILE}
+echo '<div id="wrapper">' >> ${HTML_FILE}
+
+echo '<h1> Hello World</h1>' >> ${HTML_FILE}
+echo '<video id="vid" preload controls="controls">' >> ${HTML_FILE}
+echo "<source src=\"${1}\" type=\"video/mp4\" />" >> ${HTML_FILE}
+echo 'Your browser does not support the video tag.' >> ${HTML_FILE}
+echo '</video>' >> ${HTML_FILE}
+
+echo '<script type="text/javascript">' >> ${HTML_FILE}
+echo 'var myvid = document.getElementById("vid");' >> ${HTML_FILE}
+echo 'myvid.load();' >> ${HTML_FILE}
+echo '</script>' >> ${HTML_FILE}
 
 
-echo '</body>' >> ${F}
 
+echo '<ul class="images">' >> ${HTML_FILE}
+#Count for grabbing the images from the frames directory
 Count=1
-cat ${timeCodes} |
+cat ${TIME_CODE_FILE} |
 while read line
 do
   T=`echo ${line} | cut -b 3-`
-  echo "<br /><a onclick=\"myvid.currentTime=${T};\" href=\"#\"><img src=\"frames/thumbnails-${Count}.jpeg\" /></a>" >> ${F}
+  echo "<li><figure><a onclick=\"myvid.currentTime=${T};\" href=\"#\"><img src=\"frames/thumbnails-${Count}.jpeg\" /></a></figure></li>" >> ${HTML_FILE}
   Count=`expr ${Count} + 1`
 done
+echo '</ul>' >> ${HTML_FILE}
+echo '</div>' >> ${HTML_FILE}
+echo '</body>' >> ${HTML_FILE}
+echo '</html>' >> ${HTML_FILE}
 
-
-echo '</html>' >> ${F}
-
-rm ${timeCodes}
+rm ${TIME_CODE_FILE}
 
