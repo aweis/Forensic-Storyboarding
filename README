@@ -6,3 +6,5 @@ Tim Vaughan
 This application is a Bash script that collects all the scene changes from a video for forensic purposes.
 
 The script outputs a usable HTML5 interface that can be used for selecting the keyframe in the video.
+
+For optimal experience, Google Chrome is recommended
