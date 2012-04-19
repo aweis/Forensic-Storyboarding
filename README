@@ -2,3 +2,7 @@ Storyboarding lab 15-498 S12
 
 Adam Weis
 Tim Vaughan
+
+This application is a Bash script that collects all the scene changes from a video for forensic purposes.
+
+The script outputs a usable HTML5 interface that can be used for selecting the keyframe in the video.
