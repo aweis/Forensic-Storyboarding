@@ -12,9 +12,13 @@ a {
 	margin: 0 auto;
 }
 
-#vid {
-  margin: 0 auto;
+#vid_wrapper {
   text-align: center;
+}
+
+#vid {
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* Main gallery */
@@ -36,7 +40,7 @@ a {
 }
 
 .images figure:hover {
-	-webkit-transform: translate(0, -2px);
+	-webkit-transform: translate(0, -4px);
 }
 
 .images img {

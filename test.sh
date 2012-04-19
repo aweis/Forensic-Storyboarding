@@ -28,11 +28,14 @@ echo '</head>' >> ${HTML_FILE}
 echo '<body>' >> ${HTML_FILE}
 echo '<div id="wrapper">' >> ${HTML_FILE}
 
-echo '<h1> Hello World</h1>' >> ${HTML_FILE}
+echo '<h1>Video Storyboard</h1>' >> ${HTML_FILE}
+
+echo '<div id="vid_wrapper">' >> ${HTML_FILE}
 echo '<video id="vid" preload controls="controls">' >> ${HTML_FILE}
 echo "<source src=\"${1}\" type=\"video/mp4\" />" >> ${HTML_FILE}
 echo 'Your browser does not support the video tag.' >> ${HTML_FILE}
 echo '</video>' >> ${HTML_FILE}
+
 
 echo '<script type="text/javascript">' >> ${HTML_FILE}
 echo 'var myvid = document.getElementById("vid");' >> ${HTML_FILE}
@@ -53,6 +56,8 @@ do
 done
 echo '</ul>' >> ${HTML_FILE}
 echo '</div>' >> ${HTML_FILE}
+echo '</div>' >> ${HTML_FILE}
+
 echo '</body>' >> ${HTML_FILE}
 echo '</html>' >> ${HTML_FILE}
 
