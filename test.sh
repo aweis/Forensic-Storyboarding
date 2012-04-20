@@ -14,7 +14,7 @@ then
 else
 
 #convert to mp4 for display purposes
-ffmpeg -i ${1} -sameq display.mp4
+ffmpeg -i ${1} -sameq -vcodec libx264 -acodec libfaac display.mp4
 
 #remove anything in the frames directory
 if [ ! -d frames ]
