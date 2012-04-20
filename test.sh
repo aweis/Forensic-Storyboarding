@@ -1,7 +1,11 @@
 #!/bin/bash
 
+#sources we used for this:
 #http://ffmpeg.org/pipermail/ffmpeg-user/2012-HTML_FILEebruary/005279.html
 #ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i MELT.MP4 -vsync 2 -s 73x41 -f image2 thumbnails-%02d.jpeg
+
+echo 'Welcome to the Storyboarding lab'
+echo 'by Adam Weis and Tim Vaughan'
 
 if [ $# == 0 ]
 then
