@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #http://ffmpeg.org/pipermail/ffmpeg-user/2012-HTML_FILEebruary/005279.html
-
 #ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i MELT.MP4 -vsync 2 -s 73x41 -f image2 thumbnails-%02d.jpeg
 
 if [ $# == 0 ]
@@ -13,6 +12,9 @@ if [ ! -f ${1} ]
 then
   echo "Usage: ${0} <video file>"
 else
+
+#convert to mp4 for display purposes
+ffmpeg -i ${1} -sameq display.mp4
 
 #remove anything in the frames directory
 if [ ! -d frames ]
@@ -47,7 +49,7 @@ echo '<h1>Video Storyboard</h1>' >> ${HTML_FILE}
 
 echo '<div id="vid_wrapper">' >> ${HTML_FILE}
 echo '<video id="vid" preload controls="controls">' >> ${HTML_FILE}
-echo "<source src=\"${1}\" type=\"video/mp4\" />" >> ${HTML_FILE}
+echo "<source src=\"display.mp4\" type=\"video/mp4\" />" >> ${HTML_FILE}
 echo 'Your browser does not support the video tag.' >> ${HTML_FILE}
 echo '</video>' >> ${HTML_FILE}
 
