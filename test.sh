@@ -24,7 +24,7 @@ fi
 
 TIME_CODE_FILE="keyframe-timecodes.txt"
 
-ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i ${1} -vsync 2 -s 73x41 -f image2 ./frames/thumbnails-%d.jpeg -loglevel debug 2>&1 | grep "pict_type:I -> select:1" | cut -d " " -f 6 - > ${TIME_CODE_FILE} 
+./ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i ${1} -vsync 2 -s 73x41 -f image2 ./frames/thumbnails-%d.jpeg -loglevel debug 2>&1 | grep "pict_type:I -> select:1" | cut -d " " -f 6 - > ${TIME_CODE_FILE} 
 
 HTML_FILE="site.html"
 
