@@ -4,8 +4,23 @@
 
 #ffmpeg -vf select="eq(pict_type\,PICT_TYPE_I)" -i MELT.MP4 -vsync 2 -s 73x41 -f image2 thumbnails-%02d.jpeg
 
+if [ $# == 0 ]
+then
+  echo "Usage: ${0} <video file>"
+else
+
+if [ ! -f ${1} ]
+then
+  echo "Usage: ${0} <video file>"
+else
+
 #remove anything in the frames directory
-rm ./frames/*
+if [ ! -d frames ]
+then
+  mkdir frames
+else
+  rm ./frames/*
+fi
 
 TIME_CODE_FILE="keyframe-timecodes.txt"
 
@@ -62,4 +77,5 @@ echo '</body>' >> ${HTML_FILE}
 echo '</html>' >> ${HTML_FILE}
 
 rm ${TIME_CODE_FILE}
-
+fi
+fi
